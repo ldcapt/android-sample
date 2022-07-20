@@ -32,12 +32,15 @@ import com.example.recyclersample.R
 import com.example.recyclersample.addFlower.FLOWER_DESCRIPTION
 import com.example.recyclersample.addFlower.FLOWER_NAME
 import com.example.recyclersample.data.Flower
+import com.example.recyclersample.data.Song
+import com.example.recyclersample.service.MediaService
 
 const val FLOWER_ID = "flower id"
 
 class FlowersListActivity : AppCompatActivity() {
     private var playButton : Button? = null
     private var isPlay : Boolean = false
+    private var intentTemp : Intent? = null
     private val newFlowerActivityRequestCode = 1
     private val flowersListViewModel by viewModels<FlowersListViewModel> {
         FlowersListViewModelFactory(this)
@@ -90,10 +93,21 @@ class FlowersListActivity : AppCompatActivity() {
     private fun playMusic() {
         if (isPlay) {
             isPlay = false
-            playButton?.setBackgroundResource(R.drawable.ic_vector_pause)
+            playButton?.setBackgroundResource(R.drawable.ic_vector_play)
+            if (intentTemp != null) {
+                stopService(intentTemp)
+            }
+            Log.d("ServiceMedia", "Stop service")
         } else {
             isPlay = true
-            playButton?.setBackgroundResource(R.drawable.ic_vector_play)
+            playButton?.setBackgroundResource(R.drawable.ic_vector_pause)
+            val song = Song("Radio mùa ngâu", R.drawable.ic_music, "Halmet Trương Radio", R.raw.radio_mua_ngau)
+            val bundle = Bundle()
+            bundle.putSerializable("object song", song)
+            intentTemp = Intent(this, MediaService::class.java)
+            intentTemp?.putExtras(bundle)
+            startService(intentTemp)
+            Log.d("ServiceMedia", "Start service")
         }
     }
 
