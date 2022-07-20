@@ -1,14 +1,14 @@
 package com.example.recyclersample.service
 
 import android.annotation.SuppressLint
-import android.app.Notification
-import android.app.PendingIntent
-import android.app.Service
+import android.app.*
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.MediaPlayer
 import android.os.IBinder
+import android.provider.MediaStore
+import android.provider.Settings
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import com.example.recyclersample.R
@@ -23,14 +23,17 @@ class MediaService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val bundle = intent?.extras
 
-        if (bundle != null) {
-            val song: Song = bundle.get("object song") as Song
-            playMusic(song)
-            sendNotification(song)
-        }
+//        if (bundle != null) {
+//            val song: Song = bundle.get("object song") as Song
+//            playMusic(song)
+//            sendNotification(song)
+//        }
 
+        player = MediaPlayer.create(this,  Settings.System.DEFAULT_RINGTONE_URI)
+        player.isLooping = true
+        player.start()
         // Return status of program
-        return START_NOT_STICKY
+        return START_STICKY
     }
 
     override fun onBind(p0: Intent?): IBinder? {
@@ -39,9 +42,7 @@ class MediaService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (player != null) {
-            player.stop()
-        }
+        player.stop()
     }
 
     @SuppressLint("UnspecifiedImmutableFlag")
@@ -58,14 +59,14 @@ class MediaService : Service() {
         remoteView.setImageViewResource(R.id.btn_play, R.drawable.ic_vector_play_24dp)
 
         val notification: Notification =
-            NotificationCompat.Builder(this, MyApplication.CHANNEL_ID)
+            NotificationCompat.Builder(applicationContext, MyApplication.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_vector_close)
                 .setContentIntent(pendingIntent)
                 .setCustomContentView(remoteView)
                 .setSound(null)
                 .build()
 
-        startForeground(101, notification)
+        startForeground(1, notification)
     }
 
     private fun playMusic(song : Song) {

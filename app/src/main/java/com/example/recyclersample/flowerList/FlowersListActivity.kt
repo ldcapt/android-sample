@@ -17,7 +17,10 @@
 package com.example.recyclersample.flowerList
 
 import android.app.Activity
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -31,36 +34,39 @@ import com.example.recyclersample.flowerDetail.FlowerDetailActivity
 import com.example.recyclersample.R
 import com.example.recyclersample.addFlower.FLOWER_DESCRIPTION
 import com.example.recyclersample.addFlower.FLOWER_NAME
+import com.example.recyclersample.app.MyApplication
 import com.example.recyclersample.data.Flower
 import com.example.recyclersample.data.Song
+import com.example.recyclersample.fragment.MainFragment
 import com.example.recyclersample.service.MediaService
 
 const val FLOWER_ID = "flower id"
 
 class FlowersListActivity : AppCompatActivity() {
-    private var playButton : Button? = null
-    private var isPlay : Boolean = false
-    private var intentTemp : Intent? = null
+    private var playButton: Button? = null
+    private var isPlay: Boolean = false
+    private var intentTemp: Intent? = null
     private val newFlowerActivityRequestCode = 1
     private val flowersListViewModel by viewModels<FlowersListViewModel> {
         FlowersListViewModelFactory(this)
     }
 
+    companion object {
+        const val CHANNEL_ID: String = "channel_service"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        /* Instantiates headerAdapter and flowersAdapter. Both adapters are added to concatAdapter.
-        which displays the contents sequentially */
         playButton = findViewById<View>(R.id.btn_play) as Button
         playButton!!.setOnClickListener {
             playMusic()
         }
-
+        val fab: View = findViewById(R.id.fab)
+        val btnFragment = findViewById<View>(R.id.btn_fragment) as Button
         val headerAdapter = HeaderAdapter()
         val flowersAdapter = FlowersAdapter { flower -> adapterOnClick(flower) }
         val concatAdapter = ConcatAdapter(headerAdapter, flowersAdapter)
-
         val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
         recyclerView.adapter = concatAdapter
 
@@ -70,11 +76,17 @@ class FlowersListActivity : AppCompatActivity() {
                 headerAdapter.updateFlowerCount(it.size)
             }
         }
-
-        val fab: View = findViewById(R.id.fab)
         fab.setOnClickListener {
             fabOnClick()
         }
+        btnFragment.setOnClickListener {
+            fragOnClick()
+        }
+
+    }
+
+    private fun fragOnClick() {
+        startActivity(Intent(this, MainFragment()::class.java))
     }
 
     /* Opens FlowerDetailActivity when RecyclerView item is clicked. */
@@ -94,19 +106,28 @@ class FlowersListActivity : AppCompatActivity() {
         if (isPlay) {
             isPlay = false
             playButton?.setBackgroundResource(R.drawable.ic_vector_play)
-            if (intentTemp != null) {
-                stopService(intentTemp)
-            }
+//            if (intentTemp != null) {
+//                stopService(intentTemp)
+//            }
+
+            stopService(Intent(this, MediaService::class.java))
             Log.d("ServiceMedia", "Stop service")
         } else {
             isPlay = true
             playButton?.setBackgroundResource(R.drawable.ic_vector_pause)
-            val song = Song("Radio mùa ngâu", R.drawable.ic_music, "Halmet Trương Radio", R.raw.radio_mua_ngau)
-            val bundle = Bundle()
-            bundle.putSerializable("object song", song)
-            intentTemp = Intent(this, MediaService::class.java)
-            intentTemp?.putExtras(bundle)
-            startService(intentTemp)
+//            val song = Song(
+//                "Radio mùa ngâu",
+//                R.drawable.ic_music,
+//                "Halmet Trương Radio",
+//                R.raw.radio_mua_ngau
+//            )
+//            val bundle = Bundle()
+//            bundle.putSerializable("object song", song)
+//            intentTemp = Intent(this, MediaService::class.java)
+//            intentTemp?.putExtras(bundle)
+//            startService(intentTemp)
+
+            startService(Intent(this, MediaService::class.java))
             Log.d("ServiceMedia", "Start service")
         }
     }
@@ -123,5 +144,10 @@ class FlowersListActivity : AppCompatActivity() {
                 flowersListViewModel.insertFlower(flowerName, flowerDescription)
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        stopService(Intent(this, MediaService::class.java))
     }
 }

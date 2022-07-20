@@ -34,7 +34,9 @@
         </activity>
         <activity android:name=".addFlower.AddFlowerActivity" />
         <activity android:name=".flowerDetail.FlowerDetailActivity" />
+        <activity android:name=".fragment.MainFragment" />
         <service android:name=".service.MediaService"/>
+
     </application>
 
 </manifest>

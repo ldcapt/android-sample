@@ -24,8 +24,8 @@ class MyApplication : Application() {
             )
             channel.setSound(null, null)
 
-            val manager: NotificationManager? = getSystemService(NotificationManager::class.java)
-            manager?.createNotificationChannel(channel)
+            val manager = getSystemService(NotificationManager::class.java) as NotificationManager
+            manager.createNotificationChannel(channel)
         }
     }
 }
