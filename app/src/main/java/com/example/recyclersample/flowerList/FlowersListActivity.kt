@@ -19,7 +19,11 @@ package com.example.recyclersample.flowerList
 import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.usage.NetworkStatsManager
 import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
+import android.net.wifi.WifiManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -27,6 +31,9 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.activity.viewModels
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclersample.addFlower.AddFlowerActivity
@@ -38,6 +45,7 @@ import com.example.recyclersample.app.MyApplication
 import com.example.recyclersample.data.Flower
 import com.example.recyclersample.data.Song
 import com.example.recyclersample.fragment.MainFragment
+import com.example.recyclersample.receiver.NetworkChangeReceiver
 import com.example.recyclersample.service.MediaService
 
 const val FLOWER_ID = "flower id"
@@ -47,6 +55,8 @@ class FlowersListActivity : AppCompatActivity() {
     private var isPlay: Boolean = false
     private var intentTemp: Intent? = null
     private val newFlowerActivityRequestCode = 1
+    private lateinit var receiver: NetworkChangeReceiver
+    private lateinit var filter: IntentFilter
     private val flowersListViewModel by viewModels<FlowersListViewModel> {
         FlowersListViewModelFactory(this)
     }
@@ -62,6 +72,7 @@ class FlowersListActivity : AppCompatActivity() {
         playButton!!.setOnClickListener {
             playMusic()
         }
+
         val fab: View = findViewById(R.id.fab)
         val btnFragment = findViewById<View>(R.id.btn_fragment) as Button
         val headerAdapter = HeaderAdapter()
@@ -69,7 +80,6 @@ class FlowersListActivity : AppCompatActivity() {
         val concatAdapter = ConcatAdapter(headerAdapter, flowersAdapter)
         val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
         recyclerView.adapter = concatAdapter
-
         flowersListViewModel.flowersLiveData.observe(this) {
             it?.let {
                 flowersAdapter.submitList(it as MutableList<Flower>)
@@ -82,7 +92,21 @@ class FlowersListActivity : AppCompatActivity() {
         btnFragment.setOnClickListener {
             fragOnClick()
         }
+        receiver = NetworkChangeReceiver()
+        filter = IntentFilter()
+        filter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED)
+        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION)
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        registerReceiver(receiver, filter)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(receiver)
     }
 
     private fun fragOnClick() {
@@ -149,5 +173,6 @@ class FlowersListActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         stopService(Intent(this, MediaService::class.java))
+
     }
 }
