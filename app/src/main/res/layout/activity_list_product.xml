@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".activity.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/bg_table_header"
+        android:layout_width="1536dp"
+        android:layout_height="56dp"
+        android:background="@drawable/bg_table_header"
+        android:gravity="center_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            style="@style/TxtTableHeader"
+            android:layout_width="95dp"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_table_column_no" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="40dp"
+            android:background="@color/line" />
+
+        <TextView
+            style="@style/TxtTableHeader"
+            android:layout_width="695dp"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_table_column_item_name" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="40dp"
+            android:background="@color/line" />
+
+        <TextView
+            style="@style/TxtTableHeader"
+            android:layout_width="152dp"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_table_column_item_quantity" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="40dp"
+            android:background="@color/line" />
+
+        <TextView
+            style="@style/TxtTableHeader"
+            android:layout_width="312dp"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_table_column_item_discount" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="40dp"
+            android:background="@color/line" />
+
+        <TextView
+            style="@style/TxtTableHeader"
+            android:layout_width="274dp"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_table_column_item_price" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_product_list"
+        android:layout_width="0dp"
+        android:layout_height="320dp"
+        android:background="@drawable/bg_table_body"
+        android:paddingStart="2dp"
+        android:paddingEnd="2dp"
+        app:layout_constraintEnd_toEndOf="@+id/bg_table_header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bg_table_header"
+        tools:listitem="@layout/item_table_row" />
+
+    <LinearLayout
+        android:id="@+id/bg_table_footer"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_table_footer"
+        android:gravity="center_vertical"
+        android:layout_marginTop="-2dp"
+        app:layout_constraintEnd_toEndOf="@+id/rv_product_list"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_product_list">
+
+        <TextView
+            style="@style/TxtSizeMedium"
+            android:layout_width="792dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="合計"
+            tools:text="合計" />
+
+        <TextView
+            android:id="@+id/tv_item_count"
+            style="@style/TxtSizeMedium"
+            android:layout_width="152dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            tools:text="3点" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_total_cost"
+            style="@style/TxtSizeMedium"
+            android:layout_width="274dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:paddingStart="@dimen/padding_normal"
+            android:paddingEnd="@dimen/padding_normal"
+            tools:text="¥640" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_detail_container"
+        android:layout_width="0dp"
+        android:layout_height="248dp"
+        android:layout_marginTop="@dimen/padding_small"
+        android:background="@drawable/bg_item_detail"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/bg_table_header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bg_table_footer">
+
+        <TextView
+            android:id="@+id/tv_detail_item_name"
+            style="@style/TxtSizeMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="味の素ガラスープ2" />
+
+        <TextView
+            android:id="@+id/tv_detail_item_code"
+            style="@style/TxtSizeMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/padding_normal"
+            android:paddingEnd="@dimen/padding_normal"
+            android:textSize="@dimen/txt_size_text_mute"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_detail_item_name"
+            tools:text="4901001274574" />
+
+        <TextView
+            android:id="@+id/tvItemTax"
+            style="@style/TxtSizeMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="96dp"
+            android:paddingStart="@dimen/padding_normal"
+            android:paddingEnd="@dimen/padding_normal"
+            android:textSize="@dimen/txt_size_text_mute"
+            app:layout_constraintStart_toEndOf="@+id/tv_detail_item_code"
+            app:layout_constraintTop_toBottomOf="@+id/tv_detail_item_name"
+            tools:text="外税　8%" />
+
+        <Button
+            android:id="@+id/btnDeleteProduct"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:background="@drawable/bg_trash"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_product_total_price"
+            style="@style/TxtSizeLarge"
+            android:layout_width="350dp"
+            android:gravity="end"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="¥437" />
+
+        <TextView
+            android:id="@+id/tv_product_price"
+            style="@style/TxtSizeLarge"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="350dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnDeleteProduct"
+            tools:text="437" />
+
+        <LinearLayout
+            android:id="@+id/stepQuantity"
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_product_price"
+            app:layout_constraintEnd_toStartOf="@+id/tv_product_total_price"
+            app:layout_constraintTop_toTopOf="@+id/tv_product_total_price">
+
+            <Button
+                android:textSize="36sp"
+                android:fontFamily="@font/noto_sans"
+                android:id="@+id/btnDecrease"
+                android:layout_width="112dp"
+                android:layout_height="72dp"
+                android:text="ー１"
+                android:background="@drawable/bg_btn_decrease"/>
+
+            <TextView
+                style="@style/TxtSizeLarge"
+                android:textSize="48sp"
+                android:gravity="end|center_vertical"
+                android:id="@+id/input_product_quantity"
+                android:layout_margin="8dp"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:layout_width="128dp"
+                android:layout_height="72dp"
+                android:background="@drawable/bg_input_small"
+                tools:text="1" />
+
+            <Button
+                android:textSize="36sp"
+                android:fontFamily="@font/noto_sans"
+                android:id="@+id/btnIncrease"
+                android:layout_width="112dp"
+                android:layout_height="72dp"
+                android:text="＋1"
+                android:background="@drawable/bg_btn_increase_enable"/>
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvNotification"
+        style="@style/TxtTableBody"
+        android:layout_width="0dp"
+        android:layout_height="144dp"
+        android:layout_marginTop="@dimen/margin_small"
+        android:background="@drawable/bg_notification"
+        android:gravity="start|center_vertical"
+        android:padding="@dimen/padding_normal"
+        android:scrollbars="vertical"
+        android:text="@string/view_product_notification"
+        app:layout_constraintEnd_toEndOf="@+id/item_detail_container"
+        app:layout_constraintStart_toStartOf="@+id/item_detail_container"
+        app:layout_constraintTop_toBottomOf="@+id/item_detail_container"
+        tools:text="商品をスキャンしてください。\nバーコードがない商品は【バーコードなし】ボタンを押してください。商品をスキャンしてください。\nバーコードがない商品は【バーコードなし】ボタンを押してください。" />
+
+    <Button
+        android:id="@+id/btnScanBarcodeError"
+        style="@style/ButtonBlueStyle"
+        android:layout_width="0dp"
+        android:layout_height="128dp"
+        android:background="@drawable/bg_btn_blue"
+        android:text="バーコードなし"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/item_detail_container"
+        app:layout_constraintTop_toTopOf="@+id/item_detail_container"
+        tools:text="バーコードなし" />
+
+    <LinearLayout
+        style="@style/ButtonDarkYellowStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_small"
+        android:gravity="center_vertical|center"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNotification"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/item_detail_container"
+        app:layout_constraintTop_toBottomOf="@+id/btnScanBarcodeError">
+
+        <ImageView
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:background="@drawable/ic_coin_yen"
+            android:contentDescription="@string/icon_coin_yen" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/noto_sans"
+            android:text="お会計"
+            android:textColor="@color/black"
+            android:textSize="60sp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

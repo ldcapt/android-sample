@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Radius -->
+    <dimen name="radius_table_header">12dp</dimen>
+    <dimen name="radius_btn_m">20dp</dimen>
+    <dimen name="radius_btn_l">24dp</dimen>
+    <dimen name="radius_btn_s">12dp</dimen>
+
+    <!-- Text Size -->
+    <dimen name="txt_size_text_mute">24sp</dimen>
+    <dimen name="txt_size_table_header">35sp</dimen>
+    <dimen name="txt_size_table_body">36sp</dimen>
+    <dimen name="txt_size_medium">48sp</dimen>
+    <dimen name="txt_size_large">60sp</dimen>
+
+    <!-- Border width -->
+    <dimen name="border_width_m">2dp</dimen>
+    <dimen name="border_width_l">3dp</dimen>
+
+    <!-- Padding -->
+    <dimen name="padding_normal">16dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+
+    <!-- Margin -->
+    <dimen name="margin_normal">16dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+
+</resources>

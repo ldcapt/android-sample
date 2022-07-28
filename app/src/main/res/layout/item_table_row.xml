@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bg_table_header"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:background="@drawable/bg_table_item"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    xmlns:tools="http://schemas.android.com/tools">
+
+        <TextView
+            android:id="@+id/tvItemNo"
+            style="@style/TxtTableBody"
+            android:layout_width="95dp"
+            android:layout_height="wrap_content"
+            tools:text="#" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="40dp"
+            android:background="@color/line" />
+
+        <TextView
+            android:id="@+id/tvItemName"
+            style="@style/TxtTableBody"
+            android:gravity="start"
+            android:layout_width="695dp"
+            android:layout_height="wrap_content"
+            tools:text="味の素ガラスープ" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="40dp"
+            android:background="@color/line" />
+
+        <TextView
+            android:id="@+id/tvItemQuantity"
+            style="@style/TxtTableBody"
+            android:layout_width="152dp"
+            android:layout_height="wrap_content"
+            tools:text="2" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="40dp"
+            android:background="@color/line" />
+
+        <TextView
+            android:id="@+id/tvItemDiscount"
+            style="@style/TxtTableBody"
+            android:layout_width="312dp"
+            android:layout_height="wrap_content"
+            tools:text="" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="40dp"
+            android:background="@color/line" />
+
+        <TextView
+            android:id="@+id/tv_product_price"
+            style="@style/TxtTableBody"
+            android:layout_width="274dp"
+            android:layout_height="wrap_content"
+            tools:text="156" />
+
+
+</LinearLayout>
